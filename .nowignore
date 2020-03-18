@@ -1,2 +1,4 @@
 README.md
-yarn.lock
+__sapper__
+node_modules
+cypress
