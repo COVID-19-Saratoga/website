@@ -16,18 +16,18 @@
 	function handleSubmit() {
 		alert(`answered question ${selected.id} (${selected.text}) with "${answer}"`);
     }
-    let scoops = 1;
-	let flavours = ['Mint choc chip'];
+    let quantity = 0;
+	let product = ['Nothing'];
 
 	let menu = [
-		'Cookies and cream',
-		'Mint choc chip',
-		'Raspberry ripple'
+		'Face Masks',
+		'Wipes',
+        'Kleenex'
 	];
 
-	function join(flavours) {
-		if (flavours.length === 1) return flavours[0];
-		return `${flavours.slice(0, -1).join(', ')} and ${flavours[flavours.length - 1]}`;
+	function join(product) {
+		if (product.length === 1) return product[0];
+		return `${product.slice(0, -1).join(', ')} and ${product[product.length - 1]}`;
 	}
 </script>
 
@@ -58,36 +58,36 @@
 <h2>Size</h2>
 
 <label>
-	<input type=radio bind:group={scoops} value={1}>
+	<input type=radio bind:group={quantity} value={1}>
 	One scoop
 </label>
 
 <label>
-	<input type=radio bind:group={scoops} value={2}>
-	Two scoops
+	<input type=radio bind:group={quantity} value={2}>
+	Two quantity
 </label>
 
 <label>
-	<input type=radio bind:group={scoops} value={3}>
-	Three scoops
+	<input type=radio bind:group={quantity} value={3}>
+	Three quantity
 </label>
 
-<h2>Flavours</h2>
+<h2>Product</h2>
 
 {#each menu as flavour}
 	<label>
-		<input type=checkbox bind:group={flavours} value={flavour}>
+		<input type=checkbox bind:group={product} value={flavour}>
 		{flavour}
 	</label>
 {/each}
 
-{#if flavours.length === 0}
+{#if product.length === 0}
 	<p>Please select at least one flavour</p>
-{:else if flavours.length > scoops}
-	<p>Can't order more flavours than scoops!</p>
+{:else if product.length > quantity}
+	<p>Can't order more product than quantity!</p>
 {:else}
 	<p>
-		You ordered {scoops} {scoops === 1 ? 'scoop' : 'scoops'}
-		of {join(flavours)}
+		You ordered {quantity} {quantity === 1 ? 'scoop' : 'quantity'}
+		of {join(product)}
 	</p>
 {/if}
