@@ -5,9 +5,16 @@
 		});
 	}
 </script>
-
+<!-- Button for New Post -->
 <script>
+	import Button from "../../components/Button.svelte";
 	export let posts;
+	let NewPost = 'New Post';
+
+	function clickEvent(){
+		NewPost = 'Fake Post';
+		console.log ('it works');
+	}
 </script>
 
 <style>
@@ -22,6 +29,10 @@
 </svelte:head>
 
 <h1>Recent posts</h1>
+<h1>{NewPost}</h1>
+
+
+<Button on:click = {clickEvent}>Click me</Button>
 
 <ul>
 	{#each posts as post}
