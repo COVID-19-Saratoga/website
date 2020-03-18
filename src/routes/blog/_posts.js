@@ -6,6 +6,7 @@
 // This file is called `_posts.js` rather than `posts.js`, because
 // we don't want to create an `/blog/posts` route — the leading
 // underscore tells Sapper not to do that.
+import firebase from 'firebase';
 
 var firebaseConfig = {
   apiKey: "AIzaSyClTM0ddPhZgPoVtifd8TZ0c-LrC0iZshs",
@@ -20,19 +21,48 @@ var firebaseConfig = {
 
 var proj = firebase.initializeApp(firebaseConfig);
 
-var database = proj.database();
-
-var title = "";
-var slug = title.replace(" ", "-");
-slug = slug.replace("?", "");
-var html = ``;
-
 const posts = [];
+
 posts.push({
+	title: "hello",
+	slug: "hello",
+	html: `hello`,
+  });
+
+
+var ref = proj.database().ref('posts');
+
+ref.on('value', function(snapshot) {
+	console.log("here");
+	var val = snapshot.val();
+	var type = val.type;
+	var title;
+	var html = ``;
+	if (type==="textbox") {
+		title = val.title;
+		html = val.textbox;
+	} else if (type==="item") {
+		title = val.venue + " @ " + val.timeatvenue;
+		html = val.item + ": " + val.itemstatus
+	} else {
+		title = val.venue + " @ " + val.timeatvenue;
+		html = "Wait time outside " + val.venue + ": " + val.waittime;
+	}
+	posts.push({
 	    title: title,
-	    slug: slug,
+	    slug: val,
 	    html: html,
 	  });
+})
+		
+posts.forEach(post => {
+	post.html = post.html.replace(/^\t{3}/gm, '');
+});
+export default posts;	  
+
+
+
+
 //   {
 //     title: 'What is Sapper?',
 //     slug: 'what-is-sapper',
@@ -99,8 +129,4 @@ posts.push({
 //   },
 // ];
 
-posts.forEach(post => {
-  post.html = post.html.replace(/^\t{3}/gm, '');
-});
 
-export default posts;
