@@ -11,9 +11,12 @@ const app = express() // You can also use Express
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		sapper.middleware()
-	)
-	.listen(PORT, err => {
+	);
+
+if (!process.env.NOW_REGION) {
+	app.listen(PORT, err => {
 		if (err) console.log('error', err);
 	});
+}
 
 export default app;
