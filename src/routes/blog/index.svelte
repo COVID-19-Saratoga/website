@@ -8,12 +8,14 @@
 <!-- Button for New Post -->
 <script>
 	import Button from "../../components/Button.svelte";
+	import { goto } from '@sapper/app';
 	export let posts;
 	let NewPost = 'New Post';
 
 	function clickEvent(){
 		NewPost = 'Fake Post';
 		console.log ('it works');
+		goto('./routes/CreatePost.svelte');
 	}
 </script>
 
