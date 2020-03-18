@@ -15,6 +15,7 @@
 
 <script>
 	export let post;
+	import marked from 'marked';
 </script>
 
 <style>
@@ -60,5 +61,5 @@
 <h1>{post.title}</h1>
 
 <div class='content'>
-	{@html post.html}
+	{@html marked(post.html)}
 </div>
